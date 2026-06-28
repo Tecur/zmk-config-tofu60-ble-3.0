@@ -4,29 +4,53 @@
 #define UF_BT1 device_bt1 0 0
 #define UF_BT2 device_bt2 0 1
 #define UF_BT3 device_bt3 0 2
+#define TS_MUTE ts_mute
+#define TS_DEAF ts_deaf
+#define PRT_SCR prt_scr
 
 / {
+    behaviors {
+        ZMK_MACRO(ts_mute,
+            bindings
+                = <&macro_press &kp LCTRL &kp LALT &kp LSHIFT>
+                , <&macro_tap &kp END>
+                , <&macro_release &kp LCTRL &kp LALT &kp LSHIFT>;
+        )
+        ZMK_MACRO(ts_deaf,
+            bindings
+                = <&macro_press &kp LCTRL &kp LALT &kp LSHIFT>
+                , <&macro_tap &kp HOME>
+                , <&macro_release &kp LCTRL &kp LALT &kp LSHIFT>;
+        )
+        ZMK_MACRO(prt_scr,
+            bindings
+                = <&macro_press &kp LSHIFT &kp LGUI>
+                , <&macro_tap &kp S>
+                , <&macro_release &kp LSHIFT &kp LGUI>;
+        )
+    };
+
     keymap {
         compatible = "zmk,keymap";
         
         default_layer {
 
             bindings = <
-    &gresc  &kp N1 &kp N2 &kp N3 &kp N4 &kp N5 &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 &kp MINUS &kp EQUAL &kp BSLH &kp BSPC
-    &kp TAB    &kp Q  &kp W  &kp E  &kp R  &kp T  &kp Y  &kp U  &kp I  &kp O  &kp P  &kp LBKT  &kp RBKT  &kp RET
-    &kp CLCK    &kp A  &kp S  &kp D  &kp F  &kp G  &kp H  &kp J  &kp K  &kp L  &kp SEMI &kp SQT        &kp NUHS
-    &kp LSHFT &kp NUBS &kp Z  &kp X  &kp C  &kp V  &kp B  &kp N  &kp M  &kp COMMA &kp DOT &kp FSLH      &kp RSHIFT  &mo 1
-    &kp LCTRL &kp LGUI &kp LALT             &kp SPACE                       &mo 1  &kp RALT  &kp RGUI &kp RCTRL
+    &kp ESC    &kp N1    &kp N2    &kp N3    &kp N4    &kp N5    &kp N6    &kp N7    &kp N8    &kp N9    &kp N0    &kp MINUS &kp EQUAL &kp BSPC  &trans
+    &kp TAB    &kp Q     &kp W     &kp E     &kp R     &kp T     &kp Y     &kp U     &kp I     &kp O     &kp P     &kp LBKT  &kp RBKT  &kp NUHS
+    &kp CLCK   &kp A     &kp S     &kp D     &kp F     &kp G     &kp H     &kp J     &kp K     &kp L     &kp SEMI  &kp SQT             &kp RET
+    &kp LSHFT  &kp NUBS  &kp Z     &kp X     &kp C     &kp V     &kp B     &kp N     &kp M     &kp COMMA &kp DOT   &kp FSLH  &kp RSHIFT &mo 1
+    &kp LCTRL  &kp LGUI  &kp LALT                      &kp SPACE                       &kp RALT  &kp RGUI  &kp K_APP  &kp RCTRL
             >;
         };
 
         layer1 {
             bindings = <
-    &trans  &kp F1    &kp F2    &kp F3  &kp F4   &kp F5  &kp F6  &kp F7  &kp F8   &kp F9   &kp F10  &kp F11 &kp F12  &trans  &kp DELETE
-    &trans &trans    &kp UP    &trans  &trans   &trans  &trans  &Device_USB  &UF_BT1  &UF_BT2  &UF_BT3  &kp PRINTSCREEN  &kp SCROLLLOCK  &trans 
-    &trans   &kp LEFT  &kp DOWN  &kp RIGHT &trans  &kp INSERT  &kp HOME  &kp END  &kp PAGE_UP  &kp PAGE_DOWN  &kp C_PREV  &kp C_PLAY_PAUSE     &kp PAUSE_BREAK
-    &trans &trans  &trans    &trans    &kp C_AL_CALC  &trans &UF_RESET  &trans  &kp C_MUTE  &kp C_VOL_DN  &kp C_VOL_UP   &kp C_NEXT   &trans  &trans
-    &trans  &trans   &trans                            &trans                                   &trans    &trans      &trans   &trans
+    &trans    &kp F1    &kp F2    &kp F3    &kp F4    &kp F5    &kp F6    &kp F7    &kp F8    &kp F9     &kp F10          &kp F11          &kp F12          &kp DELETE &trans
+    &kp GRAVE &kp C_AL_MY_COMPUTER &kp UP &trans &trans &trans  &trans    &trans    &trans    &trans     &trans           &trans           &trans           &trans
+    &kp C_AC_HOME &kp LEFT &kp DOWN &kp RIGHT &trans &trans &trans &trans &trans     &trans     &trans           &trans                            &trans
+    &kp LSHFT  &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &kp C_PREV &kp C_PLAY_PAUSE &kp C_NEXT        &PRT_SCR         &trans
+    &kp LCTRL  &TS_MUTE  &TS_DEAF                      &trans                          &trans    &trans    &trans           &trans
             >;
         };
         layer2 { status = "reserved"; };
